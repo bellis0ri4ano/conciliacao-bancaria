@@ -1,4 +1,4 @@
-# Conciliação Bancária 🏦
+# Conciliação Bancária
 
 Sistema para comparar extratos bancários com a planilha de pagamentos e identificar divergências.
 
