@@ -6,9 +6,7 @@ import re
 from datetime import timedelta
 import xlsxwriter
 
-# ──────────────────────────────────────────────────────────────
-# Configuração por banco
-# ──────────────────────────────────────────────────────────────
+#Configurações bancárias
 
 BANK_CONFIGS = {
     "Bradesco": {
@@ -65,7 +63,7 @@ BANK_CONFIGS = {
     },
 }
 
-# Mapeamento: quais "Conta Bancária" da planilha pertencem a qual banco
+# Mapeamento
 CONTA_TO_BANK = {
     "Bradesco": ["Bradesco", "bradesco"],
     "Itaú": ["Itaú", "Itau", "itaú", "itau"],
@@ -73,9 +71,6 @@ CONTA_TO_BANK = {
     "Banco do Brasil": ["BB", "Banco do Brasil", "BancoBrasil"],
 }
 
-# ──────────────────────────────────────────────────────────────
-# Utilitários
-# ──────────────────────────────────────────────────────────────
 
 def parse_br_number(s):
     if s is None or (isinstance(s, float) and np.isnan(s)):
@@ -330,7 +325,7 @@ def reconcile(
                 "Status": "Não encontrado na planilha",
             })
 
-    # Registros da planilha não encontrados no extrato
+    # Não encontrados no extrato
     orphan_rows = []
     for idx in pay_idx:
         if not pay.at[idx, "_usado"]:
@@ -415,9 +410,9 @@ def to_excel_report(matched, unmatched, orphans) -> bytes:
     return output.read()
 
 
-# ──────────────────────────────────────────────────────────────
+
 # Interface
-# ──────────────────────────────────────────────────────────────
+
 
 st.set_page_config(page_title="Conciliação Bancária", layout="wide")
 
@@ -506,7 +501,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── Estado da sessão ──────────────────────────────────────────
+# ── Estado da sessão 
 if "payments_df" not in st.session_state:
     st.session_state.payments_df = None
 if "bank_stmt_df" not in st.session_state:
@@ -518,9 +513,9 @@ def clear_results():
     """Limpa os resultados da tela caso algum parâmetro seja alterado pelo usuário."""
     st.session_state.results = None
 
-# ──────────────────────────────────────────────────────────────
+
 # PASSO 1 — Planilha de Pagamentos
-# ──────────────────────────────────────────────────────────────
+ 
 st.markdown("""
 <div class="step-container">
     <div class="step-badge">PASSO 1</div>
@@ -544,9 +539,9 @@ payments_df = st.session_state.payments_df
 
 st.divider()
 
-# ──────────────────────────────────────────────────────────────
+
 # PASSO 2 — Selecionar banco / contas
-# ──────────────────────────────────────────────────────────────
+
 st.markdown("""
 <div class="step-container">
     <div class="step-badge">PASSO 2</div>
